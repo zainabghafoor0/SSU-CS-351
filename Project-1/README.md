@@ -5,7 +5,7 @@
 Across all tests, **`alloca.out`** was consistently the fastest for small and medium workloads.  
 It averaged about **0.021s at 100k blocks** and **0.195s at 1M blocks**, edging out `malloc.out`.  
 However, when the data per node was large (2–4 KB), all four programs performed almost the same.  
-So `alloca.out` is generally the fastest, but **not always**, because the advantage fades as node size increases.
+So `alloca.out` is generally the fastest, but not always, because the advantage fades as node size increases.
 
 ---
 
