@@ -5,7 +5,7 @@
 Across all tests, **`alloca.out`** was consistently the fastest for small and medium workloads.  
 It averaged about **0.021s at 100k blocks** and **0.195s at 1M blocks**, edging out `malloc.out`.  
 However, when the data per node was large (2–4 KB), all four programs performed almost the same.  
-So `alloca.out` is generally the fastest — but **not always**, because the advantage fades as node size increases.
+So `alloca.out` is generally the fastest, but **not always**, because the advantage fades as node size increases.
 
 ---
 
@@ -50,6 +50,7 @@ because the **stack and heap are separate memory regions**.
 ---
 
 ## 6. Diagram — Two Nodes (for `malloc.cpp` or `alloca.cpp`)
+In 'alloca.cpp' the nodes live on the stack as placement new; in 'malloc.cpp'/'new.cpp', they live on the heap.
 
 ```mermaid
 flowchart LR
