@@ -54,8 +54,8 @@ because the **stack and heap are separate memory regions**.
 ```mermaid
 flowchart LR
   H[head] --> N1
-  N1[Node #1<br/>fields: next →, bytes* →, size=6] --> N2
-  N2[Node #2<br/>fields: next →(null), bytes* →, size=6]
+  N1["Node #1 | fields: next -> , bytes* -> , size=6"] --> N2
+  N2["Node #2 | fields: next -> (null), bytes* -> , size=6"]
   T[tail] --> N2
 
   subgraph Storage
