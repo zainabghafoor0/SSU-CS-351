@@ -92,15 +92,32 @@ int main(int argc, char* argv[]) {
     //   the threads, the computational loop (see mean.cpp), and lambda's
     //   closure configuration.
     //
+    
+    //***********************************   adding implementation   ***********************************
     for (size_t id = 0; id < threads.size(); ++id) {
-        threads[id] = std::jthread(
-            []() {
-                // Add your implementation here
-
-                barrier.arrive_and_wait();
+    threads[id] = std::jthread(
+        [&, id]() {
+            // Compute this thread's chunk of the data
+            size_t begin = id * chunkSize;
+            size_t end   = begin + chunkSize;
+            if (end > data.size()) {
+                end = data.size();
             }
-        );
-    }
+
+            // Thread-local sum
+            double localSum = 0.0;
+            for (size_t i = begin; i < end; ++i) {
+                localSum += data[i];
+            }
+
+            // Store into this thread's slot
+            sums[id] = localSum;
+
+            // Wait for all threads to finish their sums
+            barrier.arrive_and_wait();
+        }
+    );
+}
 
     //-----------------------------------------------------------------------
     //

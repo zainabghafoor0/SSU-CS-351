@@ -131,42 +131,75 @@ int main(int argc, char* argv[]) {
     //           tallyVariable += sdf(p);
     //
     //         will do nicely.
-    //
+     //
     //   (really, you'll need to add four lines to this, one of which is a
     //      closing brace :-)   
     //
-    for (size_t id = 0; id < threads.size(); ++id) {
-        threads[id] = std::jthread{ []() {
-
-            // C++ 11's random number generation system.  These functions
-            //   will generate uniformly distributed unsigned integers in
-            //   the range [0, partitions].  The functions are used in the
-            //   helper function rand() (implemented as a lambda)
-            std::random_device device;
-            std::mt19937 generator(device());
-            std::uniform_int_distribution<unsigned int> uniform(0.0, partitions);
+    
 
 
-                // Define a helper function to generate random floating-point
-                //   values in the range [0.0, 1.0]
-                auto rand = [&,partitions]() {
-                    return static_cast<double>(uniform(generator)) / partitions;
-                };
-            
-                // Generate points inside the volume cube.  First, create uniformly
-                //   distributed points in the range [0.0, 1.0] for each dimension.
-                vec3 p(rand(), rand(), rand());
+for (size_t id = 0; id < threads.size(); ++id) {
+    threads[id] = std::jthread{ [&, id]() {
 
+	     // C++ 11's random number generation system.  These functions
+        //   will generate uniformly distributed unsigned integers in
+        //   the range [0, partitions].  The functions are used in the
+        //   helper function rand() (implemented as a lambda)
+	//
+        // Thread-local random number generator
+        std::random_device device;
+        std::mt19937 generator(device());
+        std::uniform_int_distribution<unsigned int> uniform(
+            0u, static_cast<unsigned int>(partitions)
+        );
 
-            barrier.arrive_and_wait();
-        }};
-    }
+        // Helper to generate a double in [0.0, 1.0]
+        auto rand = [&]() {
+            return static_cast<double>(uniform(generator)) /
+                   static_cast<double>(partitions);
+        };
+
+	 // Generate points inside the volume cube.  First, create uniformly
+         //   distributed points in the range [0.0, 1.0] for each dimension.
+        // Count how many random points fall inside the region of interest
+        size_t localCount = 0;
+        for (size_t i = 0; i < chunkSize; ++i) {
+            // Random point in the unit cube
+            vec3 p(rand(), rand(), rand());
+
+            // sdf(p) returns true if the point is in the cube MINUS sphere
+            // (bool converts to 0 or 1 when added to an integer)
+            localCount += sdf(p);
+        }
+
+        // Store this thread's tally
+        insidePoints[id] = localCount;
+
+        // Wait for all threads to finish
+        barrier.arrive_and_wait();
+    }};
+}
+
 
     // Add in the last necessary parts for our threaded programs.  These
     //   may include summing up the individual threads' computations, or
     //   having the main thread wait on a thread to keep it from exiting
     //
     // (Look in threaded.cpp for hints)
+
+
+ // Make sure all threads are finished
+    for (auto& t : threads) {
+        if (t.joinable()) {
+            t.join();
+        }
+    }
+
+    // Sum the results from each thread
+    size_t volumePoints = 0;
+    for (size_t i = 0; i < insidePoints.size(); ++i) {
+        volumePoints += insidePoints[i];
+    }
 
     std::cout << static_cast<double>(volumePoints) / numSamples << "\n";
 }
