@@ -7,7 +7,7 @@ This project implements multi-threaded versions of two programs (**mean.cpp** an
 ## Computing a Mean
 
 ### Speedup Graph
-![Speedup graph for computing mean](mean_speedup.crtx)
+![Speedup graph for computing mean](mean_speedup.png)
 
 ---
 
@@ -125,7 +125,7 @@ Bandwidth plateaus around **16+ threads**, matching the speedup flattening.
 ## Computing a Volume (SDF)
 
 ### Speedup Graph
-![Speedup graph for computing volume](sdf_speedup.crtx)
+![Speedup graph for computing volume](sdf_speedup.png)
 
 ---
 
