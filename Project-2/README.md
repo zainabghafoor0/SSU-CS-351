@@ -42,35 +42,55 @@ No. The scaling is **sublinear**. From 16 to 18 threads the gain is almost zero,
 
 ### 5. Amdahl’s Law: Estimate of p
 
-Using the max observed speedup:
 
-Using the max observed speedup:
+Looking at the speedup graph for the mean computation, the curve rises quickly
+and then flattens out around a maximum speedup of about **55×**. This plateau
+is the practical maximum speedup, which we can use with Amdahl’s Law to
+estimate `p`, the parallel fraction of the program.
 
-S = 55
-n = 18
-
-Amdahl’s Law:
-S = 1 / ((1 - p) + (p / n))
-
-Solving:
-1 / 55 = (1 - p) + (p / 18)
-
-1 / 55 = (1 - p) (1 - 1 / 18)
-
-1 / 55 = (1 - p) (17 / 18) 
-
- p= (1 - 1 / 55) / (17 / 18)
+Amdahl’s Law is:
 
 
-Result:
-p ≈ 0.988
+    S(n) = 1 / ((1 - p) + p/n)
 
-Thus:
+To get the *maximum* possible speedup, we imagine having an unlimited number of
+threads. That means to take the limit as `n → infinity`.
 
-- About **98.8%** of the program is parallelizable  
-- About **1.2%** is irreducibly serial  
+When `n` becomes extremely large, the parallel term goes to zero:
 
-Based on graph behavior, a reasonable estimate is **p ≈ 0.98**. I got this by noticing where the graph levels off (around a 50–55× speedup) and interpreting that flattening value as the practical maximum speedup, which implies only about 1–2% of the work is serial.
+
+    p/n → 0
+
+So Amdahl’s formula becomes:
+
+    S_max = 1 / ((1 - p) + 0)
+
+Which simplifies to:
+
+    S_max = 1 / (1 - p)
+
+From the graph, I take:
+
+    S_max ≈ 55
+
+    55 = 1 / (1 - p)
+
+    1 - p = 1 / 55
+
+Now solve for `p`:
+
+    p = 1 - 1/55
+      ≈ 0.98182
+
+So:
+
+    p ≈ 0.98
+
+
+This means that about **98% of the program is parallelizable** and about **2% is
+inherently serial** (file I/O, setup, final reduction, etc.). That small serial
+portion is what causes the speedup curve to flatten even when more threads are
+added.
  
 
 ---
