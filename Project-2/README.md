@@ -109,7 +109,7 @@ Total samples:
 N = 8,500,000,000
 
 Total bytes:
-34 GB = 8.5 × 10^9 × 4 = N x 4
+N x 4 = 8.5 × 10^9 × 4 = 34 GB
 
 Fastest run time:
 1.33 s
