@@ -44,23 +44,26 @@ No. The scaling is **sublinear**. From 16 to 18 threads the gain is almost zero,
 
 Using the max observed speedup:
 
-\[
-S = 55,\quad n = 18
-\]
+Using the max observed speedup:
 
-\[
-S = \frac{1}{(1-p) + \frac{p}{n}}
-\]
+S = 55
+n = 18
+
+Amdahl’s Law:
+S = 1 / ((1 - p) + (p / n))
 
 Solving:
+1 / 55 = (1 - p) + (p / 18)
 
-\[
-\frac{1}{55} = (1-p) + \frac{p}{18}
-\]
+1 / 55 = (1 - p) (1 - 1 / 18)
 
-\[
-p \approx 0.988
-\]
+1 / 55 = (1 - p) (17 / 18) 
+
+ p= (1 - 1 / 55) / (17 / 18)
+
+
+Result:
+p ≈ 0.988
 
 Thus:
 
