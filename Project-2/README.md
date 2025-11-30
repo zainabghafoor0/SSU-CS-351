@@ -13,7 +13,7 @@ This project implements multi-threaded versions of two programs (**mean.cpp** an
 
 ### 1. Does the speedup curve converge?
 
-Yes. The curve increases quickly up to around **14–16 threads**, then begins to flatten around **55× speedup**, showing that the serial portion of the program becomes the bottleneck. After ~16 threads, adding more threads gives almost no improvement.
+Yes, the speedup curve converges. The curve rises up to about 14–16 threads, then begins to flatten around **55×** speedup. This flattening indicates the serial portion of the program is becoming the bottleneck. After ~16 threads, adding more threads yields almost zero improvement.
 
 ---
 
@@ -29,9 +29,8 @@ When the thread count exceeds the number of available physical cores:
 
 - Performance stops improving  
 - Speedup may slightly worsen  
-- Context switching overhead increases  
 
-This is visible in the graph after ~16 threads.
+This is visible in the graph after 16 threads.
 
 ---
 
@@ -68,7 +67,8 @@ Thus:
 - About **98.8%** of the program is parallelizable  
 - About **1.2%** is irreducibly serial  
 
-Based on graph behavior, a reasonable estimate is **p ≈ 0.98**.
+Based on graph behavior, a reasonable estimate is **p ≈ 0.98**. I got this by noticing where the graph levels off (around a 50–55× speedup) and interpreting that flattening value as the practical maximum speedup, which implies only about 1–2% of the work is serial.
+ 
 
 ---
 
