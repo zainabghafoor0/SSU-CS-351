@@ -83,28 +83,17 @@ Each iteration reads a single `float`, so:
 ### 7. Bandwidth estimation
 
 Total samples:
-
-\[
-N = 8{,}500{,}000{,}000
-\]
+N = 8,500,000,000
 
 Total bytes:
-
-\[
-34\ \text{GB} = 8.5 \times 10^9 \times 4
-\]
+34 GB = 8.5 × 10^9 × 4
 
 Fastest run time:
-
-\[
-1.33\ \text{s}
-\]
+1.33 s
 
 Bandwidth:
+34 GB / 1.33 s ≈ 25.6 GB/s
 
-\[
-\frac{34\ \text{GB}}{1.33\ \text{s}} \approx 25.6\ \text{GB/s}
-\]
 
 ---
 
