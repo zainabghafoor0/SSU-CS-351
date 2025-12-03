@@ -5,22 +5,20 @@
 
     <!-- VERTEX SHADER -->
     <script id="vertex-shader" type="x-shader/x-vertex">
-
-        
 void main() {
     float N = 3.0;
     float angle = 2.0 * 3.1415926 * float(gl_VertexID) / N;
     vec2 pos = vec2(cos(angle), sin(angle));
     gl_Position = vec4(pos, 0.0, 1.0);
 }
-
     </script>
 
     <!-- FRAGMENT SHADER -->
     <script id="fragment-shader" type="x-shader/x-fragment">
-  void main() {
+void main() {
     gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
 }
+    </script>   <!-- 🔥 THIS WAS MISSING -->
 
     <script>
         window.onload = () => {
@@ -51,4 +49,3 @@ void main() {
     <canvas id="webgl" width="512" height="512"></canvas>
 </body>
 </html>
-
