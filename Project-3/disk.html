@@ -17,7 +17,8 @@ void main() {
     }
 
     // Compute angle for this vertex
-    float angle = 2.0 * 3.1415926 * float(gl_VertexID - 1) / (N - 1.0);
+   float angle = 2.0 * 3.1415926 * float(gl_VertexID - 1) / float(N - 2);
+
 
     // Point on unit circle
     vec2 pos = vec2(cos(angle), sin(angle));
@@ -52,7 +53,7 @@ void main() {
             gl.useProgram(program);
 
             // Number of vertices (1 center + 11 outer = 12 total)
-            var N = 13;
+            var N = 12;
             var uN = gl.getUniformLocation(program, "N");
             gl.uniform1f(uN, N);
 
