@@ -170,18 +170,11 @@ using Complex = TComplex<float>;
 //
 
 inline __device__ float magnitude(const Complex& z) { return z.magnitude(); }
-
-    // Add your CUDA implementation of the Julia program here.
-    //
-    // Hint: this function should basically be the same thing as the body
-    //   of the two for loops in the C++ version.  If you're clever, which
-    //   means you choose your variable names well (just like Phil mentions)
-    //   you can pretty much drop in the CPU code, and then do the extra
-    //   CUDA bits
-
-   __global__
+__global__
 void julia(Complex d, Complex center, Color* pixels)
 {
+    // CUDA implementation of the Julia program here.
+
     int x = blockIdx.x * blockDim.x + threadIdx.x;
     int y = blockIdx.y * blockDim.y + threadIdx.y;
 
