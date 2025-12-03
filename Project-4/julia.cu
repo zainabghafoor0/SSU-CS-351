@@ -202,8 +202,6 @@ void julia(Complex d, Complex center, Color* pixels) {
     pixels[idx] = setColor(iter);
 }
 
-};
-
 //----------------------------------------------------------------------------
 //
 //  function main()
