@@ -16,7 +16,7 @@ void main() {
     }
 
     // Compute angle for vertex
-    float angle = 2.0 * 3.1415926 * float(gl_VertexID - 1) / (N - 2.0);
+    float angle = 2.0 * 3.1415926 * float(gl_VertexID - 1) / (N - 10.0);
 
     // EVEN vertices → outer radius (full size)
     // ODD vertices → inner radius (short “valley”)
