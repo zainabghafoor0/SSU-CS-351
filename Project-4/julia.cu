@@ -171,8 +171,6 @@ using Complex = TComplex<float>;
 
 inline __device__ float magnitude(const Complex& z) { return z.magnitude(); }
 
-__global__
-void julia(Complex d, Complex center, Color* pixels) {
     // Add your CUDA implementation of the Julia program here.
     //
     // Hint: this function should basically be the same thing as the body
@@ -181,20 +179,27 @@ void julia(Complex d, Complex center, Color* pixels) {
     //   you can pretty much drop in the CPU code, and then do the extra
     //   CUDA bits
 
+   __global__
+void julia(Complex d, Complex center, Color* pixels)
+{
     int x = blockIdx.x * blockDim.x + threadIdx.x;
     int y = blockIdx.y * blockDim.y + threadIdx.y;
 
     if (x >= Width || y >= Height) return;
 
-    // Map pixel to complex plane coordinate
-    float real = x * d.x - center.x;
-    float imag = y * d.y - center.y;
+    // Compute c exactly like CPU version
+    float cx = x * d.x;
+    float cy = y * d.y;
 
-    Complex z(real, imag);
+    Complex c(cx, cy);
+    c -= center;
+
+    // Start z at 0 (Mandelbrot)
+    Complex z(0.0f, 0.0f);
 
     int iter = 0;
     while (iter < MaxIterations && magnitude(z) < 2.0f) {
-        z = z * z + center;
+        z = z * z + c;
         iter++;
     }
 
