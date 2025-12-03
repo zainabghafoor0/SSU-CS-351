@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,44 +6,43 @@
 
     <!-- VERTEX SHADER -->
     <script id="vertex-shader" type="x-shader/x-vertex">
-    #version 300 es
-    precision highp float;
+uniform float N;
 
-    uniform float N;
+void main() {
 
-    void main() {
-
-        // center of the disk
-        if (gl_VertexID == 0) {
-            gl_Position = vec4(0.0, 0.0, 0.0, 1.0);
-            return;
-        }
-
-        float angle = 2.0 * 3.1415926 * float(gl_VertexID - 1) / (N - 1.0);
-        vec2 pos = vec2(cos(angle), sin(angle));
-        gl_Position = vec4(pos, 0.0, 1.0);
+    // Vertex 0 = center point of the disk
+    if (gl_VertexID == 0) {
+        gl_Position = vec4(0.0, 0.0, 0.0, 1.0);
+        return;
     }
+
+    // Compute angle for this vertex
+    float angle = 2.0 * 3.1415926 * float(gl_VertexID - 1) / (N - 1.0);
+
+    // Point on unit circle
+    vec2 pos = vec2(cos(angle), sin(angle));
+
+    gl_Position = vec4(pos, 0.0, 1.0);
+}
     </script>
 
     <!-- FRAGMENT SHADER -->
     <script id="fragment-shader" type="x-shader/x-fragment">
-    #version 300 es
-    precision highp float;
+out vec4 outColor;
 
-    out vec4 outColor;
-
-    void main() {
-        outColor = vec4(1.0, 1.0, 1.0, 1.0);
-    }
+void main() {
+    outColor = vec4(1.0, 1.0, 1.0, 1.0);
+}
     </script>
 
+    <!-- JAVASCRIPT -->
     <script>
         window.onload = () => {
             var canvas = document.getElementById("webgl");
             var gl = canvas.getContext("webgl2");
 
             if (!gl) {
-                alert("WebGL2 failed to initialize. Your browser may not support it.");
+                alert("WebGL2 failed to initialize.");
                 return;
             }
 
@@ -51,13 +51,17 @@
             var program = initShaders(gl, "vertex-shader", "fragment-shader");
             gl.useProgram(program);
 
+            // Number of vertices (1 center + 11 outer = 12 total)
             var N = 12;
             var uN = gl.getUniformLocation(program, "N");
             gl.uniform1f(uN, N);
 
             function render() {
                 gl.clear(gl.COLOR_BUFFER_BIT);
+
+                // Draw a filled disk using TRIANGLE_FAN
                 gl.drawArrays(gl.TRIANGLE_FAN, 0, N);
+
                 requestAnimationFrame(render);
             }
             render();
@@ -69,4 +73,3 @@
     <canvas id="webgl" width="512" height="512"></canvas>
 </body>
 </html>
-
