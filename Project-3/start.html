@@ -15,11 +15,13 @@ void main() {
         return;
     }
 
-    // Compute angle for vertex
-    float angle = 2.0 * 3.1415926 * float(gl_VertexID - 1) / (N - 10.0);
+    // We have 10 perimeter points (5 outer + 5 inner)
+    // N is 12: 1 center + 10 perimeter + 1 duplicate to close
+    float k = float(gl_VertexID - 1);      // 0 .. 10
+    float angle = 2.0 * 3.1415926 * k / (N - 2.0);  // N - 2 = 10.0
 
     // EVEN vertices → outer radius (full size)
-    // ODD vertices → inner radius (short “valley”)
+    // ODD vertices  → inner radius (shorter)
     float radius = (gl_VertexID % 2 == 0) ? 1.0 : 0.4;
 
     vec2 pos = radius * vec2(cos(angle), sin(angle));
@@ -28,13 +30,13 @@ void main() {
     </script>
 
     <!-- FRAGMENT SHADER -->
-<script id="fragment-shader" type="x-shader/x-fragment">
+    <script id="fragment-shader" type="x-shader/x-fragment">
 out vec4 outColor;
 
 void main() {
     outColor = vec4(1.0, 1.0, 1.0, 1.0);
 }
-</script>
+    </script>
 
     <!-- JAVASCRIPT -->
     <script>
@@ -53,7 +55,7 @@ void main() {
             gl.useProgram(program);
 
             // Number of vertices:
-            // 1 center + 10 alternating points + 1 extra to close → 12
+            // 1 center + 10 alternating points + 1 duplicate to close → 12
             var N = 12;
             var uN = gl.getUniformLocation(program, "N");
             gl.uniform1f(uN, N);
