@@ -1,3 +1,49 @@
+# Project 4 — CUDA Iota & Fractal Generator
+This project explores basic GPU programming with NVIDIA CUDA.  
+It consists of two independent parts:
+
+1. **A CUDA-accelerated version of the `std::iota` function**  
+2. **A CUDA implementation of a Julia/Mandelbrot fractal image generator**
+
+Both programs were compiled and executed on the Oblivus cloud GPU server using an NVIDIA RTX A6000.
+
+---
+# Part 1:  CUDA Iota Function
+
+
+## Timing Results
+` ./runTrials.sh ./iota.cpu`
+|Vector<br>Length|Wall Clock<br>Time|User Time|System Time|
+|:--:|--:|--:|--:|
+|10| 0.00| 0.00| 0.00|
+|100| 0.00| 0.00| 0.00|
+|1000| 0.00| 0.00| 0.00|
+|10000| 0.00| 0.00| 0.00|
+|100000| 0.00| 0.00| 0.00|
+|1000000| 0.00| 0.00| 0.00|
+|5000000| 0.02| 0.00| 0.02|
+|100000000| 0.52| 0.08| 0.44|
+|500000000| 2.64| 0.43| 2.21|
+|1000000000| 5.33| 0.89| 4.44|
+|5000000000|35.76| 5.28|30.48|
+
+
+`./runTrials.sh ./iota.gpu`
+|Vector<br>Length|Wall Clock<br>Time|User Time|System Time|
+|:--:|--:|--:|--:|
+|10| 0.19| 0.03| 0.12|
+|100| 0.10| 0.00| 0.09|
+|1000| 0.10| 0.01| 0.09|
+|10000| 0.10| 0.01| 0.09|
+|100000| 0.10| 0.00| 0.08|
+|1000000| 0.12| 0.01| 0.10|
+|5000000| 0.13| 0.01| 0.11|
+|100000000| 0.69| 0.13| 0.55|
+|500000000| 3.35| 1.01| 2.33|
+|1000000000| 5.89| 1.29| 4.58|
+|5000000000|63.24|10.14|53.09|
+
+
 ## Questions
 
 ### 1) Are the results what you expected?
@@ -13,3 +59,5 @@ Yes, the CPU implementation performed much faster than the CUDA implementation f
 
 CUDA provides no benefit here because the kernel does very little work, and the overhead dominates the runtime.
 
+## # Part 1: Julia/Mandelbrot Image
+![Fractal Image](julia.png)
