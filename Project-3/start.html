@@ -5,24 +5,22 @@
 
     <!-- VERTEX SHADER -->
     <script id="vertex-shader" type="x-shader/x-vertex">
-uniform float N;
+uniform float N;   // Total number of vertices
 
 void main() {
 
-    // Vertex 0 = center of the star
+    // Vertex 0 = center
     if (gl_VertexID == 0) {
         gl_Position = vec4(0.0, 0.0, 0.0, 1.0);
         return;
     }
 
-    // We have 10 perimeter points (5 outer + 5 inner)
-    // N is 12: 1 center + 10 perimeter + 1 duplicate to close
-    float k = float(gl_VertexID - 1);      // 0 .. 10
-    float angle = 2.0 * 3.1415926 * k / (N - 2.0);  // N - 2 = 10.0
+    // Perimeter vertices: 1..N-2  (last one is duplicate)
+    float k = float(gl_VertexID - 1);       // 0..11
+    float angle = 2.0 * 3.1415926 * k / (N - 2.0);  // N-2 = 12 perimeter points
 
-    // EVEN vertices → outer radius (full size)
-    // ODD vertices  → inner radius (shorter)
-    float radius = (gl_VertexID % 2 == 0) ? 1.0 : 0.4;
+    // Outer for even IDs, inner for odd → 6-point star
+    float radius = (gl_VertexID % 2 == 0) ? 1.0 : 0.5;
 
     vec2 pos = radius * vec2(cos(angle), sin(angle));
     gl_Position = vec4(pos, 0.0, 1.0);
@@ -34,7 +32,7 @@ void main() {
 out vec4 outColor;
 
 void main() {
-    outColor = vec4(1.0, 1.0, 1.0, 1.0);
+    outColor = vec4(1.0, 1.0, 0.0, 1.0);  // yellow star
 }
     </script>
 
@@ -54,17 +52,15 @@ void main() {
             var program = initShaders(gl, "vertex-shader", "fragment-shader");
             gl.useProgram(program);
 
-            // Number of vertices:
-            // 1 center + 10 alternating points + 1 duplicate to close → 12
-            var N = 12;
+            // 6-point star:
+            // 1 center + 12 alternating outer/inner + 1 duplicate = 14 vertices
+            var N = 14;
             var uN = gl.getUniformLocation(program, "N");
             gl.uniform1f(uN, N);
 
             function render() {
                 gl.clear(gl.COLOR_BUFFER_BIT);
-
                 gl.drawArrays(gl.TRIANGLE_FAN, 0, N);
-
                 requestAnimationFrame(render);
             }
             render();
