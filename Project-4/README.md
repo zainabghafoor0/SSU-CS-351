@@ -36,6 +36,7 @@ I then collected timing results using the `runTrials.sh` script.
 |1000000000| 5.33| 0.89| 4.44|
 |5000000000|35.76| 5.28|30.48|
 
+
 `./runTrials.sh ./iota.gpu`
 |Vector<br>Length|Wall Clock<br>Time|User Time|System Time|
 |:--:|--:|--:|--:|
