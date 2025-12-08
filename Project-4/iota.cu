@@ -7,7 +7,7 @@
 using Count = size_t;
 using DataType = long;
 
-const DataType DefalutStartValue = -6.0;
+const DataType DefaultStartValue = -6.0;
 const Count TestSize = 1'000'000'000;
 const Count NumCheckValues = 500;
 
@@ -35,7 +35,7 @@ int main(int argc, char* argv[]) {
   
     cudaMemcpy(gpuValues, values.data(), numBytes, cudaMemcpyHostToDevice);
 
-    DataType startValue = DefalutStartValue;
+    DataType startValue = DefaultStartValue;
 
     int chunkSize = 256;
     int numChunks = int((float) numValues / chunkSize + 1);
