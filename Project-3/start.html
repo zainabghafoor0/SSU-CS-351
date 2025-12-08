@@ -12,28 +12,26 @@ out vec3 vColor;
 
 void main() {
 
-    // Vertex 0 = center
+    // Vertex 0 = center of the star
     if (gl_VertexID == 0) {
         gl_Position = vec4(0.0, 0.0, 0.0, 1.0);
-        vColor = vec3(1.0, 0.0, 0.0);   // Center is red
+        vColor = vec3(1.0, 0.0, 0.0);   // center = red
         return;
     }
 
-    // Perimeter vertices numbered 1 .. N-2
-    float k = float(gl_VertexID - 1);        // 0 .. 11 for 6-point star
+    float k = float(gl_VertexID - 1);          // 0..11
     float angle = 2.0 * 3.1415926 * k / (N - 2.0);
 
-    // Alternate outer and inner radius
+    // Outer / inner alternating points for 6-point star
     float radius = (gl_VertexID % 2 == 0) ? 1.0 : 0.5;
 
-    // Position of the vertex
     vec2 pos = radius * vec2(cos(angle), sin(angle));
     gl_Position = vec4(pos, 0.0, 1.0);
 
     // Smooth rainbow color based on angle
     float r = 0.5 + 0.5 * cos(angle);
-    float g = 0.5 + 0.5 * cos(angle + 2.094);   // +120 degrees
-    float b = 0.5 + 0.5 * cos(angle + 4.188);   // +240 degrees
+    float g = 0.5 + 0.5 * cos(angle + 2.094);  // 120°
+    float b = 0.5 + 0.5 * cos(angle + 4.188);  // 240°
 
     vColor = vec3(r, g, b);
 }
@@ -68,11 +66,9 @@ void main() {
             var program = initShaders(gl, "vertex-shader", "fragment-shader");
             gl.useProgram(program);
 
-            // 6-point star:
-            // center + 12 perimeter points + 1 duplicate = 14
+            // 1 center + 12 perimeter + 1 duplicate
             var N = 14;
-            var uN = gl.getUniformLocation(program, "N");
-            gl.uniform1f(uN, N);
+            gl.uniform1f(gl.getUniformLocation(program, "N"), N);
 
             function render() {
                 gl.clear(gl.COLOR_BUFFER_BIT);
