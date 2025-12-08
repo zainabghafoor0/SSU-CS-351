@@ -7,7 +7,7 @@
 using Count = size_t;
 using DataType = long;
 
-const DataType DefalutStartValue = -6.0;
+const DataType DefaultStartValue = -6.0;
 const Count TestSize = 1'000'000'000;
 const Count NumCheckValues = 500;
 
