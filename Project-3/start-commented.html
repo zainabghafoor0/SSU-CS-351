@@ -8,39 +8,64 @@
 uniform float N;
 uniform float t;
 
+out vec3 vColor;
+
 void main() {
 
     // Vertex 0 = center
     if (gl_VertexID == 0) {
         gl_Position = vec4(0.0, 0.0, 0.0, 1.0);
+        vColor = vec3(1.0, 0.2, 0.6);  // hot neon pink center
         return;
     }
 
-    // Base angle of this vertex
+    // Base angle of each vertex
     float angle = 2.0 * 3.1415926 *
                   float(gl_VertexID - 1) / (N - 2.0);
 
     // Add rotation
     angle += t;
 
-    // Alternate outer / inner radius for star points
+    // Star shape alternating radius
     float radius = (gl_VertexID % 2 == 0) ? 1.0 : 0.4;
 
     vec2 pos = radius * vec2(cos(angle), sin(angle));
-
     gl_Position = vec4(pos, 0.0, 1.0);
+
+        
+    // Neon colors = high saturation, bright falloff
+    float neonPhase = angle + t * 0.8;   // shift neon with time
+
+    // Base rainbow using sine waves
+    float r = 0.6 + 0.6 * sin(neonPhase);
+    float g = 0.6 + 0.6 * sin(neonPhase + 2.094);  // +120°
+    float b = 0.6 + 0.6 * sin(neonPhase + 4.188);  // +240°
+
+    // Neon glow: square the colors for high saturation lights
+    r = r * r;
+    g = g * g;
+    b = b * b;
+
+    // Slight pulse for beauty
+    float pulse = 0.3 + 0.2 * sin(t * 2.0);
+    vColor = vec3(r, g, b) * (1.0 + pulse);
 }
     </script>
 
     <!-- FRAGMENT SHADER -->
     <script id="fragment-shader" type="x-shader/x-fragment">
+precision mediump float;
+
+in vec3 vColor;
 out vec4 outColor;
 
 void main() {
-    outColor = vec4(1.0, 1.0, 1.0, 1.0);
+    // Final glow look (slightly boosted)
+    outColor = vec4(vColor * 1.2, 1.0);
 }
     </script>
 
+    <!-- JAVASCRIPT -->
     <script>
         window.onload = () => {
             var canvas = document.getElementById("webgl");
@@ -51,31 +76,26 @@ void main() {
                 return;
             }
 
-            gl.clearColor(0.1, 0.1, 0.1, 1.0);
+            gl.clearColor(0.03, 0.03, 0.03, 1.0); // darker makes neon stronger
 
             var program = initShaders(gl, "vertex-shader", "fragment-shader");
             gl.useProgram(program);
 
-            // Number of vertices:
             const N = 12;
-            var uN = gl.getUniformLocation(program, "N");
-            gl.uniform1f(uN, N);
+            gl.uniform1f(gl.getUniformLocation(program, "N"), N);
 
-            // Time uniform
             var uTime = gl.getUniformLocation(program, "t");
             var t = 0.0;
 
-            var render = () => {
-                t += 0.01;            // update rotation
+            function render() {
+                t += 0.01;
                 gl.uniform1f(uTime, t);
 
                 gl.clear(gl.COLOR_BUFFER_BIT);
-
-                // Draw the rotating star
                 gl.drawArrays(gl.TRIANGLE_FAN, 0, N);
 
                 requestAnimationFrame(render);
-            };
+            }
 
             render();
         };
@@ -86,3 +106,4 @@ void main() {
     <canvas id="webgl" width="512" height="512"></canvas>
 </body>
 </html>
+
