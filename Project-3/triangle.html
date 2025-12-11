@@ -15,10 +15,10 @@ void main() {
 
     <!-- FRAGMENT SHADER -->
 <script id="fragment-shader" type="x-shader/x-fragment">
-out vec4 outColor;
+precision mediump float;
 
 void main() {
-    outColor = vec4(1.0, 1.0, 1.0, 1.0);
+    gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
 }
 </script>   
 
@@ -51,3 +51,4 @@ void main() {
     <canvas id="webgl" width="512" height="512"></canvas>
 </body>
 </html>
+
