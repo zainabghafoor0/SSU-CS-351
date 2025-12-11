@@ -7,7 +7,7 @@ to animated and colored procedural stars.
 
 ---
 
-## ✔ Table of Contents
+## Table of Contents
 - [1. Wireframe Triangle](triangle.html)
 - [2. 10-Sided Filled Polygon](disk.html)
 - [3. Five-Pointed Star](star.html)
