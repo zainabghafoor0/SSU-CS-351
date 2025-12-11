@@ -5,6 +5,8 @@
 
     <!-- VERTEX SHADER -->
     <script id="vertex-shader" type="x-shader/x-vertex">
+precision highp float;
+
 void main() {
     float N = 3.0;
     float angle = 2.0 * 3.1415926 * float(gl_VertexID) / N;
@@ -14,18 +16,20 @@ void main() {
     </script>
 
     <!-- FRAGMENT SHADER -->
-<script id="fragment-shader" type="x-shader/x-fragment">
+    <script id="fragment-shader" type="x-shader/x-fragment">
 precision mediump float;
 
+out vec4 outColor;
+
 void main() {
-    gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+    outColor = vec4(1.0, 1.0, 1.0, 1.0);
 }
-</script>   
+    </script>
 
     <script>
         window.onload = () => {
             var canvas = document.getElementById("webgl");
-            var gl = canvas.getContext("webgl2");
+            var gl = canvas.getContext("webgl2");  // webgl2 is correct
 
             if (!gl) {
                 alert("WebGL2 failed to initialize. Your browser may not support it.");
@@ -51,4 +55,3 @@ void main() {
     <canvas id="webgl" width="512" height="512"></canvas>
 </body>
 </html>
-
