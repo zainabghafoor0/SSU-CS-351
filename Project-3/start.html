@@ -6,36 +6,31 @@
     <!-- VERTEX SHADER -->
     <script id="vertex-shader" type="x-shader/x-vertex">
 uniform float N;
-uniform float t;
 
 out vec3 vColor;
 
 void main() {
 
-    // Vertex 0 = center
+    // Vertex 0 = center of the star
     if (gl_VertexID == 0) {
         gl_Position = vec4(0.0, 0.0, 0.0, 1.0);
-        vColor = vec3(1.0, 0.0, 0.0); // red center
+        vColor = vec3(1.0, 0.0, 0.0);   // center = red
         return;
     }
 
-    // Base angle for this vertex
-    float angle = 2.0 * 3.1415926 *
-                  float(gl_VertexID - 1) / (N - 2.0);
+    float k = float(gl_VertexID - 1); // 0..9 for 5-point star
+    float angle = 2.0 * 3.1415926 * k / (N - 2.0);
 
-    // Add rotation
-    angle += t;
-
-    // Alternating outer / inner radius (5-point star)
-    float radius = (gl_VertexID % 2 == 0) ? 1.0 : 0.45;
+    // Alternating outer / inner radius
+    float radius = (gl_VertexID % 2 == 0) ? 1.0 : 0.5;
 
     vec2 pos = radius * vec2(cos(angle), sin(angle));
     gl_Position = vec4(pos, 0.0, 1.0);
 
-    //rainbow color
+    // Smooth rainbow color
     float r = 0.5 + 0.5 * cos(angle);
-    float g = 0.5 + 0.5 * cos(angle + 2.094);  // +120°
-    float b = 0.5 + 0.5 * cos(angle + 4.188);  // +240°
+    float g = 0.5 + 0.5 * cos(angle + 2.094);
+    float b = 0.5 + 0.5 * cos(angle + 4.188);
 
     vColor = vec3(r, g, b);
 }
@@ -64,28 +59,20 @@ void main() {
                 return;
             }
 
-            gl.clearColor(0.03, 0.03, 0.03, 1.0); // dark background
+            gl.clearColor(0.1, 0.1, 0.1, 1.0);
 
             var program = initShaders(gl, "vertex-shader", "fragment-shader");
             gl.useProgram(program);
 
-            // 5-point star → 10 perimeter + 1 center + 1 closing = 12
-            const N = 12;
+            // 1 center + 10 points + 1 duplicate = 12 vertices
+            var N = 12;
             gl.uniform1f(gl.getUniformLocation(program, "N"), N);
 
-            var uTime = gl.getUniformLocation(program, "t");
-            var t = 0.0;
-
             function render() {
-                t += 0.01;
-                gl.uniform1f(uTime, t);
-
                 gl.clear(gl.COLOR_BUFFER_BIT);
                 gl.drawArrays(gl.TRIANGLE_FAN, 0, N);
-
                 requestAnimationFrame(render);
             }
-
             render();
         };
     </script>
