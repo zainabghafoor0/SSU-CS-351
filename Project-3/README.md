@@ -18,6 +18,7 @@ to animated and colored procedural stars.
 ## Image Previews
 
 [![Triangle](images/triangle.png)](triangle.html)  
-[![Polygon](images/polygon.png)](disk.html)  
+[![Polygon](images/disk.png)](disk.html)  
 [![Star](images/star.png)](star.html)  
-[![Rotating Colored Star](images/star-color.png)](star-color.html)
+[![Rotating Colored Star](images/start-commented.gif)](star-color.html)
+
