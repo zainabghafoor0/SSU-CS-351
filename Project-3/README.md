@@ -4,7 +4,7 @@ Zainab Ghafoor
 
 This project explores procedural geometry in WebGL by generating shapes entirely inside the vertex shader using `gl_VertexID`. Each version builds on the previous one.
 
-   ---
+---
 
 ## Table of Contents 
 
@@ -13,7 +13,7 @@ This project explores procedural geometry in WebGL by generating shapes entirely
 3. **[Five-Pointed Star](start.html)**
 4. **[Five-Pointed Rotating Colored Star](start.html)**
    
-   
+--- 
   
  ## Image Previews 
  [![Triangle](triangle.png)](triangle.html) 
@@ -21,7 +21,7 @@ This project explores procedural geometry in WebGL by generating shapes entirely
  [![Star](start.png)](start.html) 
  [![Rotating Colored Star](start-commented.gif)](start.html) ---
 
-  ---
+---
 
 ## Descriptions
 
