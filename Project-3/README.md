@@ -13,7 +13,7 @@ This project explores procedural geometry in WebGL by generating shapes entirely
 3. **[Five-Pointed Star](start.html)**
 4. **[Five-Pointed Rotating Colored Star](start.html)**
    
-   ---
+   
   
  ## Image Previews 
  [![Triangle](triangle.png)](triangle.html) 
