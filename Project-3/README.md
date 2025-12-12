@@ -8,19 +8,10 @@ This project explores procedural geometry in WebGL by generating shapes entirely
 
 ## Table of Contents
 
-1. **[Wireframe Triangle](triangle.html)**  
-2. **[10-Sided Filled Polygon](disk.html)**  
-3. **[Five-Pointed Star](start.html)**  
-4. **[Five-Pointed Rotating Colored Star](start.html)**  
-
----
-
-## Image Previews
-
-[![Triangle](triangle.png)](triangle.html)  
-[![Polygon](disk.png)](disk.html)  
-[![Star](start.png)](start.html)  
-[![Rotating Colored Star](start-commented.gif)](start.html)
+[![Wireframe Triangle](triangle.png)](triangle.html)  
+[![10-Sided Filled Polygon](disk.png)](disk.html)  
+[![Five-Pointed Star](start.png)](start.html)  
+[![Five-Pointed Rotating Colored Star](start-commented.gif)](start.html)
 
 ---
 
