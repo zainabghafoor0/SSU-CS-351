@@ -11,8 +11,7 @@ to animated and colored procedural stars.
 - [1. Wireframe Triangle](triangle.html)
 - [2. 10-Sided Filled Polygon](disk.html)
 - [3. Five-Pointed Star](star.html)
-- [4. Rotating Five-Pointed Star](start-commented.html)
-- [5. Extra Credit: Colored Rotating Star](start-commented.html)
+- [5. Five-Pointed Colored Rotating Star](start-commented.html)
 
 
 ```markdown
