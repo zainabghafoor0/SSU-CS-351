@@ -1,4 +1,7 @@
 # Project-2: Threading and Multi-core Applications
+CS 351 – Computer Architecture
+
+Zainab Ghafoor
 
 This project implements multi-threaded versions of two programs (**mean.cpp** and **sdf.cpp**) to explore parallel computation and performance scaling on multi-core CPUs. It includes timing analysis, speedup graphs, bandwidth calculations, and an Amdahl’s Law evaluation.
 
