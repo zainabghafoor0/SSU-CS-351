@@ -89,6 +89,7 @@ So:
 
     p ≈ 0.98
 
+This estimate is based on the observed plateau; however, memory bandwidth limitations also contribute to the flattening of the speedup curve.
 
 This means that about **98% of the program is parallelizable** and about **2% is
 inherently serial** (file I/O, setup, final reduction, etc.). That small serial
