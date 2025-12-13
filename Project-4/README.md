@@ -1,4 +1,8 @@
 # Project 4 — CUDA Iota & Fractal Generator
+CS 351 – Computer Architecture
+
+Zainab Ghafoor
+
 This project explores basic GPU programming with NVIDIA CUDA.  
 It consists of two independent parts:
 
