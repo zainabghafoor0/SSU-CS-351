@@ -60,7 +60,8 @@ because the **stack and heap are separate memory regions**.
 ---
 
 ## 6. Considering either the malloc.cpp or alloca.cpp versions of the program, generate a diagram showing two Nodes. 
-In 'alloca.cpp' the nodes live on the stack as placement new; in 'malloc.cpp'/'new.cpp', they live on the heap.
+
+Figure: Memory layout of two linked-list Nodes showing head and tail pointers, next links, and each Node’s bytes pointer referencing the start of a six-byte data allocation (heap in malloc.cpp or stack in alloca.cpp).
 
 ```mermaid
 flowchart LR
@@ -86,6 +87,9 @@ flowchart LR
   N2 -- bytes* --> B2
 
 ```
+
+---
+
 
 ## 7. There's an overhead to allocating memory, initializing it, and eventually processing (in our case, hashing it). For each program, were any of these tasks the same? Which one(s) were different?
 
