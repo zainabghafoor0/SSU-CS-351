@@ -1,3 +1,13 @@
+# Project-1: Remote GitHub Development and Performance Monitoring
+CS 351 – Computer Architecture
+
+Zainab Ghafoor
+
+This project introduces remote GitHub-based development while exploring how different memory allocation strategies in C++ affect program performance. By building, benchmarking, and analyzing multiple implementations of the same algorithm, the project compares stack, heap, and container-based memory usage and evaluates their impact on runtime, scalability, and system-level behavior such as heap expansion and stack limits.
+
+---
+
+
 # Memory Allocation Performance Report
 
 ## 1. Which program is fastest? Is it always the fastest?
