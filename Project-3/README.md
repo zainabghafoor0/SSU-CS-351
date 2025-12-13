@@ -27,13 +27,13 @@ This project explores procedural geometry in WebGL by generating shapes entirely
 ## Descriptions
 
 ### 1. Wireframe Triangle (`triangle.html`)
-Creates an equilateral triangle procedurally using `gl_VertexID` and draws it in wireframe using `gl.LINE_LOOP`. No buffers or external geometry are used.
+Procedurally generates an equilateral triangle in the vertex shader using gl_VertexID and trigonometric functions. The triangle is rendered as a wireframe using gl.LINE_LOOP, with no vertex buffers or external geometry.
 
 ### 2. 10-Sided Filled Polygon (`disk.html`)
-Extends the triangle version by switching to `gl.TRIANGLE_FAN` and using a uniform `N` to compute a 10-sided convex polygon. Vertex 0 is the shared center.
+Generates a filled 10-sided polygon procedurally using a triangle fan, with vertex positions computed in the vertex shader from gl_VertexID.
 
 ### 3. Five-Pointed Colored Star (`start.html`)
-Modifies vertex positions by alternating the radius based on even and odd `gl_VertexID` values. This produces the shape of a five-pointed star.
+Procedurally generates a five-pointed star by alternating vertex radii using gl_VertexID. Colors are computed per vertex in the vertex shader using trigonometric functions, creating a smooth rainbow effect.
 
 ### 4. Five-Pointed Rotating Colored Star (`start-commented.html`)
-Adds a time uniform to rotate the star each frame. Colors are generated procedurally using interpolated values based on vertex angle, creating a smooth rainbow effect.
+Procedurally generates a five-pointed star using gl_VertexID and a triangle fan, with alternating inner and outer radii. A time uniform is used to continuously rotate the star, and per-vertex colors are computed in the vertex shader using trigonometric functions, producing a smooth animated rainbow effect.
