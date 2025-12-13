@@ -125,13 +125,15 @@ Bandwidth:
 
 ### 8. Is the bandwidth consistent across threaded versions?
 
-No — bandwidth increases with thread count:
+No, bandwidth increases with thread count:
 
-| Version               | Time (s) | Bandwidth |
-|----------------------|----------|-----------|
-| Serial               | 73.01    | 0.47 GB/s |
-| Threaded (1 thread)  | 10.87    | 3.1 GB/s  |
-| Threaded (many)      | 1.33     | 25.6 GB/s |
+| Version                | Time (s) | Bandwidth |
+|------------------------|----------|-----------|
+| Serial                 | 73.01    | 0.47 GB/s |
+| Threaded (1 thread)    | 10.87    | 3.1 GB/s  |
+| Threaded (16 threads)  | 1.34     | 25.4 GB/s |
+| Threaded (18 threads)  | 1.33     | 25.6 GB/s |
+
 
 Bandwidth plateaus around **16+ threads**, matching the speedup flattening.
 
