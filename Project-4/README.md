@@ -1,4 +1,4 @@
-# Project 4 — CUDA Iota & Fractal Generator
+# Project 4: CUDA Iota & Fractal Generator
 CS 351 – Computer Architecture
 
 Zainab Ghafoor
@@ -16,8 +16,8 @@ Both programs were compiled and executed on the Oblivus cloud GPU server using a
 
 The first part of this project involved writing two versions of the `iota` function:
 
-- **iota.cpu** — the CPU version using a simple `for` loop  
-- **iota.gpu** — the CUDA version, where each element is computed by one GPU thread  
+- **iota.cpu**- the CPU version using a simple `for` loop  
+- **iota.gpu**- the CUDA version, where each element is computed by one GPU thread  
 
 I then collected timing results using the `runTrials.sh` script.
 
