@@ -46,7 +46,7 @@ Programs with heavier per-node management (`list.out`, `new.out`) scaled worse.
 
 ---
 
-## 5. Consider heap breaks — what's noticeable? Does increasing the stack size affect the heap? Speculate on any similarities and differences in programs.
+## 5. Consider heap breaks, what's noticeable? Does increasing the stack size affect the heap? Speculate on any similarities and differences in programs?
 
 `alloca.out` showed the same small number of breaks (69) regardless of list length.  
 This is proof that it uses the **stack**.  
@@ -59,23 +59,32 @@ because the **stack and heap are separate memory regions**.
 
 ---
 
-## 6. Diagram — Two Nodes (for `malloc.cpp` or `alloca.cpp`)
+## 6. Considering either the malloc.cpp or alloca.cpp versions of the program, generate a diagram showing two Nodes. 
 In 'alloca.cpp' the nodes live on the stack as placement new; in 'malloc.cpp'/'new.cpp', they live on the heap.
 
 ```mermaid
 flowchart LR
   H[head] --> N1
-  N1["Node #1 | fields: next -> , bytes* -> , size=6"] --> N2
-  N2["Node #2 | fields: next -> (null), bytes* -> , size=6"]
+  N1["Node #1
+  next -> Node #2
+  bytes* ->
+  data size = 6 bytes"] --> N2
+
+  N2["Node #2
+  next -> null
+  bytes* ->
+  data size = 6 bytes"]
+
   T[tail] --> N2
 
-  subgraph Storage
-    B1[(6 bytes for Node #1)]
-    B2[(6 bytes for Node #2)]
+  subgraph Allocated_Data
+    B1["byte 0 | byte 1 | byte 2 | byte 3 | byte 4 | byte 5"]
+    B2["byte 0 | byte 1 | byte 2 | byte 3 | byte 4 | byte 5"]
   end
 
   N1 -- bytes* --> B1
   N2 -- bytes* --> B2
+
 ```
 
 ## 7. There's an overhead to allocating memory, initializing it, and eventually processing (in our case, hashing it). For each program, were any of these tasks the same? Which one(s) were different?
