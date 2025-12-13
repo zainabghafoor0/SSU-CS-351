@@ -7,7 +7,7 @@ This project explores basic GPU programming with NVIDIA CUDA.
 It consists of two independent parts:
 
 1. **A CUDA-accelerated version of the `std::iota` function**  
-2. **A CUDA implementation of a Julia/Mandelbrot fractal image generator**
+2. **A CUDA-implementation of a Julia/Mandelbrot fractal image generator**
 
 Both programs were compiled and executed on the Oblivus cloud GPU server using an NVIDIA RTX A6000.
 
