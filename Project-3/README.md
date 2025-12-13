@@ -1,5 +1,6 @@
 # Project 3 – WebGL Procedural Geometry  
 CS 351 – Computer Architecture
+
 Zainab Ghafoor
 
 This project explores procedural geometry in WebGL by generating shapes entirely inside the vertex shader using `gl_VertexID`. Each version builds on the previous one.
